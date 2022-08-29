@@ -38,7 +38,7 @@ inputs:
     description: 'Branch in which your new changes exists ex. dev'
     required: true
     default: 'main'
-    
+
 runs:
   using: "composite"
   steps:  
@@ -47,6 +47,12 @@ runs:
       - uses: actions/setup-node@v1
         with:
           node-version: '16.16.0'
+          
+      - uses: bharatpe/assets-checker@main
+        with:
+          token: ${{ inputs.token }}
+          target_folder: ${{ inputs.target_folder }}
+          thrashold_size: ${{ inputs.thrashold_size }}
 
       - uses: bharatpe/pr-bundle-analyzer@main
         with:
@@ -57,8 +63,3 @@ runs:
           head_branch: ${{ inputs.head_branch}}
           token: ${{ inputs.token }}
            
-      - uses: bharatpe/assets-checker@main
-        with:
-          token: ${{ inputs.token }}
-          target_folder: ${{ inputs.target_folder }}
-          thrashold_size: ${{ inputs.thrashold_size }}
