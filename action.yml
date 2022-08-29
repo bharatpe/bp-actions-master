@@ -39,6 +39,7 @@ inputs:
     required: true
     default: 'main'
 
+
 runs:
   using: "composite"
   steps:  
@@ -48,7 +49,8 @@ runs:
         with:
           node-version: '16.16.0'
 
-      - uses: bharatpe/pr-bundle-analyzer@main
+      - name: PR Bundle Analyzer
+        uses: bharatpe/pr-bundle-analyzer@main
         with:
           install_command: ${{ inputs.install_command}}
           build_command: ${{ inputs.build_command}}
@@ -57,9 +59,27 @@ runs:
           head_branch: ${{ inputs.head_branch}}
           token: ${{ inputs.token }}
 
-      - uses: bharatpe/assets-checker@main
+      - name: Lighthouse
+        uses: foo-software/lighthouse-check-action@master
+        id: lighthouseCheck
+        with:
+          urls: 'https://www.google.com'
+          gitHubAccessToken: ${{ inputs.token }}
+          prCommentEnabled: true
+          
+      - name: Verify Lighthouse Check results
+        uses: foo-software/lighthouse-check-status-action@master
+        with:
+          lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
+          minAccessibilityScore: "50"
+          minBestPracticesScore: "50"
+          minPerformanceScore: "50"
+          minProgressiveWebAppScore: "50"
+          minSeoScore: "50"
+           
+      - name: Assets Checker
+        uses: bharatpe/assets-checker@main
         with:
           token: ${{ inputs.token }}
           target_folder: ${{ inputs.target_folder }}
           thrashold_size: ${{ inputs.thrashold_size }}
-           
