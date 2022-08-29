@@ -6,6 +6,9 @@ inputs:
   token:
     description: 'The token to use to access the GitHub API'
     required: true
+  gh_token:
+    description: 'The token to use to access the GitHub'
+    required: true
 
   # Assets Checker Inputs
   target_folder:
@@ -58,6 +61,7 @@ runs:
           base_branch: ${{ inputs.base_branch}}
           head_branch: ${{ inputs.head_branch}}
           token: ${{ inputs.token }}
+          gh_token: ${{ inputs.gh_token }}
 
       - name: Lighthouse
         uses: foo-software/lighthouse-check-action@master
