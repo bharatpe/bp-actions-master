@@ -1,0 +1,23 @@
+name: 'Master Actions by BharatPe'
+
+on: [pull_request]
+jobs:
+  Assets-Checker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.16.0'
+
+      - uses: bharatpe/bp-actions-master@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target_folder: src/assets
+          thrashold_size: 100
+          install_command: 'yarn install'
+          build_command: 'yarn run build'
+          build_path: 'build/static'
+          base_branch: ${{ github.base_ref }}
+          head_branch: ${{ github.head_ref }}
