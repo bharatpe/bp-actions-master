@@ -48,6 +48,10 @@ runs:
   steps:  
       - uses: actions/checkout@master
 
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - uses: actions/setup-node@v1
         with:
           node-version: '16.16.0'
@@ -61,7 +65,6 @@ runs:
           base_branch: ${{ inputs.base_branch}}
           head_branch: ${{ inputs.head_branch}}
           token: ${{ inputs.token }}
-          gh_token: ${{ inputs.gh_token }}
 
       - name: Lighthouse
         uses: foo-software/lighthouse-check-action@master
