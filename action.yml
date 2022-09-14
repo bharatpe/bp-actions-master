@@ -6,9 +6,6 @@ inputs:
   token:
     description: 'The token to use to access the GitHub API'
     required: true
-  gh_token:
-    description: 'The token to use to access the GitHub'
-    required: true
 
   # Assets Checker Inputs
   target_folder:
