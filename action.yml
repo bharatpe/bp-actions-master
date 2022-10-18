@@ -39,6 +39,12 @@ inputs:
     required: true
     default: "main"
 
+  # Project URL for lighthouse
+  project_url:
+    description: "list of the name of your project url(s)"
+    default: "https://bharatpe.in"
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -62,7 +68,7 @@ runs:
       uses: foo-software/lighthouse-check-action@master
       id: lighthouseCheck
       with:
-        urls: "https://www.google.com"
+        urls: ${{ inputs.project_url }}
         gitHubAccessToken: ${{ inputs.token }}
         prCommentEnabled: true
         prCommentSaveOld: true

@@ -1,4 +1,4 @@
-name: 'Master Actions by BharatPe'
+name: "Master Actions by BharatPe"
 
 on: [pull_request]
 
@@ -10,19 +10,20 @@ jobs:
 
       - uses: webfactory/ssh-agent@v0.5.4
         with:
-            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - uses: actions/setup-node@v1
         with:
-          node-version: '14.15.1'
+          node-version: "14.15.1"
 
       - uses: bharatpe/bp-actions-master@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           target_folder: src/assets
           thrashold_size: 100
-          install_command: 'yarn install'
-          build_command: 'yarn run build'
-          build_path: 'build/static'
+          install_command: "yarn install"
+          build_command: "yarn run build"
+          build_path: "build/static"
           base_branch: ${{ github.base_ref }}
           head_branch: ${{ github.head_ref }}
+          project_url: "https://bharatpe.com"
